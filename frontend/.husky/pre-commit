@@ -1,12 +1,1 @@
-# #!/usr/bin/env sh
-# . "$(dirname -- "$0")/_/husky.sh"
-
-echo "🚀 Running Pre-Commit Verification Suite..."
-
-# Run your Vitest testing suite in single-run mode (no watch mode)
-pnpm exec vitest run || exit 1
-
-# Verify TypeScript compiles and Vite builds successfully without errors
-pnpm run build || exit 1
-
-echo "✅ All checks passed! Committing code..."
+pnpm test
