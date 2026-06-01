@@ -78,6 +78,9 @@ importers:
       globals:
         specifier: ^17.6.0
         version: 17.6.0
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       typescript:
         specifier: ~6.0.2
         version: 6.0.3
@@ -944,6 +947,11 @@ packages:
 
   hls.js@1.6.16:
     resolution: {integrity: sha512-VSIRpLfRwlAAdGL4wiTucx2ScRipo0ed1FBatWkyt832jC4CReKstga6yIhYVwGu9LOBjuX9wzmRMeQdBJtzEA==}
+
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -2366,6 +2374,8 @@ snapshots:
       hermes-estree: 0.25.1
 
   hls.js@1.6.16: {}
+
+  husky@9.1.7: {}
 
   ieee754@1.2.1: {}
 
