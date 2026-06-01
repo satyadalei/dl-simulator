@@ -20,7 +20,6 @@ export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
       {/* 2D HTML User Interface Overlay */}
-      <h1 className='bg-red-500 text-white font-bold' >Hello</h1>
       <Hud />
 
       {/* 3D Simulation View */}
