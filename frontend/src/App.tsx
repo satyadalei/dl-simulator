@@ -39,7 +39,7 @@ export default function App() {
             <RigidBody type="fixed">
               <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
                 <planeGeometry args={[100, 100]} />
-                <meshStandardMaterial color="#2d3748" />
+                <meshStandardMaterial color="#2f855a" />
               </mesh>
             </RigidBody>
           </Physics>
