@@ -1,35 +1,59 @@
+
 export default function Road() {
+    const roadLength = 300;
+    const dashCount = 60;
+
     return (
         <group>
-            {/* Asphalt surface */}
+            {/* Main asphalt */}
             <mesh
                 position={[0, 0.02, 0]}
                 receiveShadow
             >
-                <boxGeometry args={[8, 0.1, 100]} />
-                <meshStandardMaterial color="#34383f" />
+                <boxGeometry args={[8, 0.1, roadLength]} />
+                <meshStandardMaterial
+                    color="#30343b"
+                    roughness={0.95}
+                />
             </mesh>
 
-            {/* Left road boundary */}
-            <mesh position={[-3.8, 0.08, 0]}>
-                <boxGeometry args={[0.12, 0.02, 100]} />
-                <meshStandardMaterial color="white" />
-            </mesh>
+            {/* Road shoulders */}
+            {[-1, 1].map((side) => (
+                <mesh
+                    key={side}
+                    position={[side * 4.15, 0.005, 0]}
+                    receiveShadow
+                >
+                    <boxGeometry args={[0.35, 0.08, roadLength]} />
+                    <meshStandardMaterial
+                        color="#8b8d8a"
+                        roughness={1}
+                    />
+                </mesh>
+            ))}
 
-            {/* Right road boundary */}
-            <mesh position={[3.8, 0.08, 0]}>
-                <boxGeometry args={[0.12, 0.02, 100]} />
-                <meshStandardMaterial color="white" />
-            </mesh>
+            {/* White edge lines */}
+            {[-1, 1].map((side) => (
+                <mesh
+                    key={side}
+                    position={[side * 3.75, 0.078, 0]}
+                >
+                    <boxGeometry args={[0.1, 0.018, roadLength]} />
+                    <meshStandardMaterial color="#f5f5f5" />
+                </mesh>
+            ))}
 
-            {/* Center lane markings */}
-            {Array.from({ length: 20 }, (_, i) => (
+            {/* Dashed center line */}
+            {Array.from({ length: dashCount }, (_, i) => (
                 <mesh
                     key={i}
-                    position={[0, 0.085, -47.5 + i * 5]}
+                    position={[0, 0.079, -147.5 + i * 5]}
                 >
-                    <boxGeometry args={[0.12, 0.02, 2.5]} />
-                    <meshStandardMaterial color="#f8fafc" />
+                    <boxGeometry args={[0.12, 0.018, 2.5]} />
+                    <meshStandardMaterial
+                        color="#f5f5f5"
+                        roughness={0.8}
+                    />
                 </mesh>
             ))}
         </group>
