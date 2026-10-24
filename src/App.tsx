@@ -1,52 +1,30 @@
-import { Canvas } from '@react-three/fiber';
-import { KeyboardControls, OrbitControls } from '@react-three/drei';
-import { Physics, RigidBody } from '@react-three/rapier';
-import { useGameStore } from './store/store';
-import { Vehicle } from './components/Vehicle';
-import { Environment } from './components/Environment';
-import { Hud } from './components/Hud';
+import DrivingScene from "./components/DrivingScene"
 
 export default function App() {
-  const currentInstruction = useGameStore((state) => state.currentInstruction);
-
-  // Map keys for player input
-  const keyboardMap = [
-    { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
-    { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
-    { name: 'left', keys: ['ArrowLeft', 'KeyA'] },
-    { name: 'right', keys: ['ArrowRight', 'KeyD'] },
-  ];
-
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
-      {/* 2D HTML User Interface Overlay */}
-      <Hud />
+    <main className="min-h-screen bg-slate-950 p-6 text-white">
+      <header className="mb-5 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            DriveLab
+          </h1>
+          <p className="mt-1 text-sm text-slate-400">
+            3D Driving Simulator · Lesson 01
+          </p>
+        </div>
 
-      {/* 3D Simulation View */}
-      <KeyboardControls map={keyboardMap}>
-        <Canvas camera={{ position: [0, 5, 10], fov: 60 }}>
-          <ambientLight intensity={0.7} />
-          <directionalLight position={[10, 10, 5]} intensity={1.5} castShadow />
+        <span className="rounded-full border border-emerald-700 px-3 py-2 text-xs text-emerald-400">
+          SCENE READY
+        </span>
+      </header>
 
-          <Physics debug>
-            {/* The Driving Car */}
-            <Vehicle />
+      <section className="relative h-[75vh] min-h-[420px] overflow-hidden rounded-2xl border border-slate-700">
+        <DrivingScene />
 
-            {/* Road, Signs, and Checkpoints */}
-            <Environment />
-
-            {/* Static Ground Floor */}
-            <RigidBody type="fixed">
-              <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-                <planeGeometry args={[100, 100]} />
-                <meshStandardMaterial color="#2f855a" />
-              </mesh>
-            </RigidBody>
-          </Physics>
-
-          <OrbitControls makeDefault />
-        </Canvas>
-      </KeyboardControls>
-    </div>
+        <div className="pointer-events-none absolute bottom-4 left-4 rounded-lg bg-slate-950/80 px-3 py-2 text-xs">
+          Road & Vehicle Prototype
+        </div>
+      </section>
+    </main>
   );
 }
