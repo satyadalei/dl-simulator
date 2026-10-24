@@ -220,8 +220,8 @@ export default function Car({ orbitEnabled }: CarProps) {
         }
     });
 
-    const speed = speedRef.current;
-    const steering = steeringRef.current;
+    // const speed = speedRef.current;
+    // const steering = steeringRef.current;
 
     return (
         <group ref={carRef} position={[0, 0, 0]}>
