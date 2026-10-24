@@ -50,7 +50,7 @@ function StreetLight({ position, rotationY = 0 }: { position: [number, number, n
 
 export function Environment() {
     const addViolation = useGameStore((state) => state.addViolation);
-    const currentSpeed = useGameStore((state) => state.speed);
+    // const currentSpeed = useGameStore((state) => state.speed);
     const trafficLight = useGameStore((state) => state.trafficLight);
 
     const handleStopIntersectionEnter = () => {
