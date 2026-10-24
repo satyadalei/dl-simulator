@@ -1,19 +1,16 @@
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 
 import Road from "./Road";
-import Car from "./Car";
 import Ground from "./Ground";
 import Roadside from "./Roadside";
+import Car from "./Car";
 
 function SceneContent() {
     return (
         <>
-            {/* Soft base illumination */}
             <ambientLight intensity={0.7} />
 
-            {/* Daylight and shadows */}
             <directionalLight
                 position={[-8, 16, 8]}
                 intensity={2.2}
@@ -31,14 +28,6 @@ function SceneContent() {
             <Road />
             <Roadside />
             <Car />
-
-            <OrbitControls
-                target={[0, 0.6, 0]}
-                enableDamping
-                minDistance={6}
-                maxDistance={35}
-                maxPolarAngle={Math.PI / 2.05}
-            />
         </>
     );
 }
@@ -49,8 +38,8 @@ export default function DrivingScene() {
             shadows
             dpr={[1, 2]}
             camera={{
-                position: [9, 9, 14],
-                fov: 50,
+                position: [0, 5.5, 9],
+                fov: 60,
                 near: 0.1,
                 far: 500,
             }}
