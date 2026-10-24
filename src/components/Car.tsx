@@ -13,12 +13,6 @@ const TURN_RATE = 1.5;
 const WHEEL_RADIUS = 0.34;
 const MAX_STEERING_ANGLE = 0.45;
 
-// type WheelProps = {
-//     position: [number, number, number];
-//     front?: boolean;
-//     speed: number;
-//     steering: number;
-// };
 
 type WheelProps = {
     position: [number, number, number];
@@ -64,7 +58,11 @@ function Wheel({
     );
 }
 
-export default function Car() {
+type CarProps = {
+    orbitEnabled: boolean;
+};
+
+export default function Car({ orbitEnabled }: CarProps) {
     const carRef = useRef<Group>(null);
     const speedRef = useRef(0);
     const steeringRef = useRef(0);
@@ -182,42 +180,44 @@ export default function Car() {
             Math.cos(car.rotation.y) * speed * dt;
 
         // 5. Follow the car with a smooth chase camera.
-        desiredCameraPosition.current
-            .set(0, 5.5, 9)
-            .applyAxisAngle(
-                new Vector3(0, 1, 0),
-                car.rotation.y
-            )
-            .add(car.position);
+        if (!orbitEnabled) {
+            desiredCameraPosition.current
+                .set(0, 5.5, 9)
+                .applyAxisAngle(
+                    new Vector3(0, 1, 0),
+                    car.rotation.y
+                )
+                .add(car.position);
 
-        desiredCameraTarget.current
-            .set(0, 0.8, -2)
-            .applyAxisAngle(
-                new Vector3(0, 1, 0),
-                car.rotation.y
-            )
-            .add(car.position);
+            desiredCameraTarget.current
+                .set(0, 0.8, -2)
+                .applyAxisAngle(
+                    new Vector3(0, 1, 0),
+                    car.rotation.y
+                )
+                .add(car.position);
 
-        // Initialize the camera without a large first-frame jump.
-        if (cameraPosition.current.lengthSq() === 0) {
-            cameraPosition.current.copy(camera.position);
-            cameraTarget.current.copy(desiredCameraTarget.current);
+            // Initialize the camera without a large first-frame jump.
+            if (cameraPosition.current.lengthSq() === 0) {
+                cameraPosition.current.copy(camera.position);
+                cameraTarget.current.copy(desiredCameraTarget.current);
+            }
+
+            const smoothing = 1 - Math.exp(-4 * dt);
+
+            cameraPosition.current.lerp(
+                desiredCameraPosition.current,
+                smoothing
+            );
+
+            cameraTarget.current.lerp(
+                desiredCameraTarget.current,
+                smoothing
+            );
+
+            camera.position.copy(cameraPosition.current);
+            camera.lookAt(cameraTarget.current);
         }
-
-        const smoothing = 1 - Math.exp(-4 * dt);
-
-        cameraPosition.current.lerp(
-            desiredCameraPosition.current,
-            smoothing
-        );
-
-        cameraTarget.current.lerp(
-            desiredCameraTarget.current,
-            smoothing
-        );
-
-        camera.position.copy(cameraPosition.current);
-        camera.lookAt(cameraTarget.current);
     });
 
     const speed = speedRef.current;
@@ -323,7 +323,22 @@ export default function Car() {
                 speedRef={speedRef}
                 steeringRef={steeringRef}
             />
-
+            <Bumper />
         </group>
+    );
+}
+
+
+
+function Bumper() {
+    return (
+        <mesh position={[0, 0.43, -2.02]} castShadow>
+            <boxGeometry args={[1.9, 0.18, 0.16]} />
+            <meshStandardMaterial
+                color="#aeb6bf"
+                metalness={0.55}
+                roughness={0.35}
+            />
+        </mesh>
     );
 }

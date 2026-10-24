@@ -1,7 +1,7 @@
 
 export default function Road() {
-    const roadLength = 300;
-    const dashCount = 60;
+    const roadLength = 2000;
+    const dashCount = 400;
 
     return (
         <group>
@@ -47,13 +47,10 @@ export default function Road() {
             {Array.from({ length: dashCount }, (_, i) => (
                 <mesh
                     key={i}
-                    position={[0, 0.079, -147.5 + i * 5]}
+                    position={[0, 0.079, -997.5 + i * 5]}
                 >
                     <boxGeometry args={[0.12, 0.018, 2.5]} />
-                    <meshStandardMaterial
-                        color="#f5f5f5"
-                        roughness={0.8}
-                    />
+                    <meshStandardMaterial color="#f5f5f5" />
                 </mesh>
             ))}
         </group>

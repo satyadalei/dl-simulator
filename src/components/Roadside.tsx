@@ -32,8 +32,8 @@ function Tree({
 export default function Roadside() {
     return (
         <group>
-            {Array.from({ length: 24 }, (_, i) => {
-                const z = -115 + i * 10;
+            {Array.from({ length: 160 }, (_, i) => {
+                const z = -790 + i * 10;
 
                 return (
                     <group key={i}>
